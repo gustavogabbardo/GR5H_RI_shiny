@@ -32,7 +32,7 @@ ui <- fluidPage(
         selectInput("metric_1", "Métrique de performance", choices = c("NSE", "KGE", "C2MP"), selected = "NSE"),
         h5("Axe x"),
         selectInput("model_x", "Modèle", choices = c("GR5H_RI", "Tangara", "MLP", "Random Forest", "XGBoost"), selected = "MLP"),
-        selectInput("cal_method_x", "Méthode de calage", choices = c("WsRf", "Ref", "OL"), selected = "Ref"),
+        selectInput("cal_method_x", "Méthode de calage", choices = c("WsRf", "Ref", "OL"), selected = "WsRf"),
         h5("Axe y"),
         selectInput("model_y", "Modèle", choices = c("GR5H_RI", "Tangara", "MLP", "Random Forest", "XGBoost"), selected = "GR5H_RI"),
         selectInput("cal_method_y", "Méthode de calage", choices = c("WsRf", "Ref", "OL"), selected = "WsRf")

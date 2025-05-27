@@ -49,12 +49,12 @@ scatter_plot_nse_kge_c2mp <- function(data, metric, mode, model_x, cal_method_x,
           x = dplyr::case_when(
             compare_model == -1 ~ 0.15, 
             compare_model == 1  ~ 0.85,
-            compare_model == 0  ~ 0 
+            compare_model == 0  ~ 0.15 
           ),
           y = case_when(
             compare_model == -1 ~ 0.85, 
             compare_model == 1  ~ 0.15,
-            compare_model == 0  ~ 0 
+            compare_model == 0  ~ 0.15
           ),
           label = paste0("n = ", n),
           color = factor(compare_model)
@@ -433,7 +433,7 @@ boxplot_tr_long_WsRf_OL <- function(data, mode, metric, mask, Tr) {
       title = paste0("Temps de réponse : ", Tr),
       x = NULL,
       y = NULL,
-      fill = NULL,
+      fill = "Méthode de calage",
       color = NULL
     ) +
     ggplot2::scale_fill_manual(
