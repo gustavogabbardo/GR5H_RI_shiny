@@ -173,7 +173,7 @@ scatter_plot_cont_table <- function(data, mode, model_x, cal_method_x, model_y, 
         x = dplyr::case_when(
           compare_model == -1 ~ 15, 
           compare_model == 1  ~ 85,  
-          compare_model == 0  ~ 15 
+          compare_model == 0  ~ 10 
         ),
         y = case_when(
           compare_model == -1 ~ 85, 
@@ -235,12 +235,12 @@ boxplot_nge_kge_c2mp <- function(data, metric, method) {
       fill = "Mode des résultats",
       color = NULL
     ) +
-    ggplot2::scale_fill_manual(
-      values = c(
-        "Calage" = "#1B9E77",
-        "Évaluation"= "#6b67a8"
-      )
-    ) +
+    # ggplot2::scale_fill_manual(
+    #   values = c(
+    #     "Calage" = "#1B9E77",
+    #     "Évaluation"= "#6b67a8"
+    #   )
+    # ) +
     ggplot2::theme_bw(base_size = 12) +
     ggplot2::theme(
       panel.grid.minor.y = ggplot2::element_blank(),
