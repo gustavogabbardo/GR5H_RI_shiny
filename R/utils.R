@@ -235,12 +235,12 @@ boxplot_nge_kge_c2mp <- function(data, metric, method) {
       fill = "Mode des résultats",
       color = NULL
     ) +
-    ggplot2::scale_fill_manual(
-      values = c(
-        "Calage" = "#1B9E77",
-        "Évaluation"= "mediumorchid"
-      )
-    ) +
+    # ggplot2::scale_fill_manual(
+    #   values = c(
+    #     "Calage" = "#1B9E77",
+    #     "Évaluation"= "mediumorchid"
+    #   )
+    # ) +
     ggplot2::theme_bw(base_size = 12) +
     ggplot2::theme(
       panel.grid.minor.y = ggplot2::element_blank(),
