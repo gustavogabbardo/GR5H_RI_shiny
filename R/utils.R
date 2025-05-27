@@ -394,9 +394,9 @@ boxplot_tr_cal_method <- function(data, metric, mode, method, mask) {
       )
   }
 
-  p1 <- boxplot_tr(metric, "Tr [1, 9] h", method,  show_strip = TRUE) + ggplot2::labs(title = paste0(metric, " borné [-]"))
+  p1 <- boxplot_tr(metric, "Tr [1, 9] h", method,  show_strip = TRUE)
   p2 <- boxplot_tr(metric, "Tr [10, 18] h", method, show_strip = FALSE)
-  p3 <- boxplot_tr(metric, "Tr [19, 128] h", method, show_strip = FALSE)
+  p3 <- boxplot_tr(metric, "Tr [19, 128] h", method, show_strip = FALSE) + ggplot2::labs(x = paste0(metric, " borné [-]"))
 
 
   p <- (p1 / p2 / p3)
@@ -430,8 +430,7 @@ boxplot_tr_long_WsRf_OL <- function(data, mode, metric, mask, Tr) {
     ) +
     ggplot2::facet_wrap(~Hprev, scales = "free_x") +
     ggplot2::labs(
-      title = paste0("Temps de réponse : ", Tr),
-      x = NULL,
+      x = paste0(metric, " borné [-]"),
       y = NULL,
       fill = "Méthode de calage",
       color = NULL
