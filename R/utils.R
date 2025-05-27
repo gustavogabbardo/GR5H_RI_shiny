@@ -220,6 +220,9 @@ boxplot_nge_kge_c2mp <- function(data, metric, method) {
       Q75 = quantile(!!sym(metric), 0.75, na.rm = TRUE),
       Q95 = quantile(!!sym(metric), 0.95, na.rm = TRUE)
     ) |> 
+    dplyr::mutate(
+      Mode = forcats::fct_recode(Mode, "Evaluation" = "Évaluation")
+    ) |> 
     ggplot2::ggplot(ggplot2::aes(x = Variable, fill = Mode)) +
     ggplot2::geom_boxplot(
       ggplot2::aes(
@@ -238,7 +241,7 @@ boxplot_nge_kge_c2mp <- function(data, metric, method) {
     ggplot2::scale_fill_manual(
       values = c(
         "Calage" = "#1B9E77",
-        "Évaluation"= "#7570B3"
+        "Evaluation"= "#7570B3"
       )
     ) +
     ggplot2::theme_bw(base_size = 12) +
