@@ -232,13 +232,13 @@ boxplot_nge_kge_c2mp <- function(data, metric, method) {
     ggplot2::labs(
       x = NULL,
       y = paste0(metric, " borné [-]"),
-      fill = NULL,
+      fill = "Mode des résultats",
       color = NULL
     ) +
     ggplot2::scale_fill_manual(
       values = c(
         "Calage" = "#1B9E77",
-        "Évaluation"= "#7570B3"
+        "Évaluation"= "#6b67a8"
       )
     ) +
     ggplot2::theme_bw(base_size = 12) +
@@ -279,7 +279,7 @@ boxplot_nse_kge_c2mp_cal_method <- function(data, mode, metric) {
     ggplot2::labs(
       x = NULL,
       y = paste0(metric, " borné [-]"),
-      fill = NULL,
+      fill = "Méthode de calage",
       color = NULL
     ) +
     ggplot2::scale_fill_manual(

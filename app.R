@@ -59,6 +59,63 @@ ui <- fluidPage(
           br(),
           div(style = "text-align: justify;", HTML("
             <p>Cette application présente les principaux résultats d'une étude sur l'application des techniques de post-traitement visant à améliorer la performance du modèle de prévision hydrologique GR5H_RI <a href='https://theses.hal.science/tel-04028903' target='_blank'>(Astagneau, 2022)</a>.</p>
+            
+            <p>Cette étude s'appuie sur la base de données développée par <a href='https://www.sciencedirect.com/science/article/pii/S0022169424015154' target='_blank'>Astagneau et al. (2024)</a>, qui compile des informations sur un large échantillon de 687 bassins situés en France métropolitaine.</p>
+            
+            <p>Les prévisions de débits générées par le modèle GR5H_RI pour ces bassins sont corrigées à l’aide de techniques de post-traitement basées sur l'utilisation de modèles de machine learning, tels que XGBoost, Random Forest et MLP (Multilayer Perceptron), afin d’améliorer la précision des prévisions et de mieux capter les dynamiques hydrologiques observées.</p>
+
+            <p>Les résultats sont disponibles pour différents horizons de prévision (3h, 6h, 12h et 24h), et selon trois options de calage du modèle GR5H_RI :</p>
+
+            <ul>
+              <li><strong>Ref :</strong> méthode de calage dite de référence. Tous les paramètres du modèle sont ajustés en mode de simulation (sans assimilation des débits observés). Le modèle intègre les dernières observations à chaque pas de temps de prévision pour mettre à jour ses états internes.</li>
+
+              <li><strong>WsRf :</strong> méthode de calage mixte. Certains paramètres du modèle sont calibrés en mode de simulation (ceux liés au bilan hydrique) et d'autres en fonction d'un horizon de calage spécifique. Le modèle intègre les dernières observations à chaque pas de temps de prévision pour mettre à jour ses états internes.</li>
+
+              <li><strong>OL :</strong> prévisions en mode de simulation, avec les paramètres calibrés selon la méthode de référence, mais sans assimilation des débits observés pour la mise à jour des états internes du modèle.</li>
+            </ul>
+
+            <p>Un découpage temporel habituel est mis en place pour suivre une approche de calage-contrôle : deux sous-périodes indépendantes, contenant environ le même nombre de données de débits observés, sont définies pour chaque bassin versant, et sont désignées sous les noms de « P1 » et « P2 ». Ainsi, les résultats des prévisions peuvent être obtenus de deux manières :</p>
+
+            <ul>
+              <li><strong>En mode de calage :</strong> le modèle hydrologique est utilisé pour prévoir les débits de la même sous-période utilisée pour le calage de ses paramètres.</li>
+              <li><strong>En mode d’évaluation :</strong> le modèle hydrologique est appliqué pour prévoir les débits de la sous-période indépendante de celle utilisée pour le calage de ses paramètres.</li>
+            </ul>
+
+            <h4>Modèles de post-traitement</h4>
+            <p>Les corrections des débits sont obtenues à l'aide de plusieurs modèles de machine learning, incluant :</p>
+
+            <ul>
+              <li>Des arbres décisionnels (<em>XGBoost, Random Forest</em>),</li>
+              <li>Des réseaux de neurones artificiels (<em>MLP – Multilayer Perceptron</em>).</li>
+            </ul>
+
+            <p>En complément, la méthode de Tangara, actuellement utilisée pour la correction des prévisions du modèle <a href='https://webgr.inrae.fr/outils/modeles-hydrologiques/modele-de-prevision-hydrologique-grp' target='_blank'>GRP</a>, a également été prise en compte pour l'évaluation des résultats à titre de comparaison.</p>
+
+            <h4>Méthodologie de correction des débits</h4>
+            <p>Les corrections sont réalisées via un des modèles de machine learning choisis. L'objectif de ces modèles est de prédire les erreurs commises par le modèle GR5H_RI à un horizon de prévision spécifié pour chaque bassin de la base de données. Les modèles sont entraînés sur une des sous-périodes (P1 ou P2) et validés sur la sous-période indépendante de celle utilisée pour l'entraînement.</p>
+
+            <p><strong>Variables :</strong></p>
+            <ul>
+              <li><strong>Prédictives :</strong> 
+                <ul>
+                  <li>erreur commise par le modèle à l’instant <em>t-1</em> (prévision faite à <em>t-2</em>),</li>
+                  <li>erreur commise par le modèle à l’instant <em>t</em> (prévision faite à <em>t-1</em>),</li>
+                  <li>débit observé à <em>t-1</em>,</li>
+                  <li>débit observé à <em>t</em>.</li>
+                  <li>gradient des débits observé <em>Qt - Qt-1</em>.</li>
+                </ul>
+              </li>
+              <li><strong>Cible :</strong> erreur commise par le modèle à l’instant <em>t+H</em>, soit la différence entre la prévision faite à <em>t</em> pour <em>t+H</em> et le débit observé à <em>t+H</em>.</li>
+            </ul>
+
+            <hr>
+            <p style='text-align: center;'><strong>Auteurs :</strong> Gustavo Gabbardo & François Bourgin</p>
+            <p style='text-align: center;'>
+              <i class='fa fa-envelope'></i> 
+              <a href='mailto:gustavo.gabbardodosreis@inrae.fr'>gustavo.gabbardodosreis@inrae.fr</a> &nbsp;|&nbsp;
+              <i class='fa fa-envelope'></i> 
+              <a href='mailto:francois.bourgins@inrae.fr'>francois.bourgins@inrae.fr</a>
+            </p>
           "))
         ),
         tabPanel(
