@@ -409,8 +409,7 @@ boxplot_tr_long_WsRf_OL <- function(data, mode, metric, mask, Tr) {
   p <- data |> 
     dplyr::filter(Mode == mode) |> 
     dplyr::filter(Mask == mask) |> 
-    dplyr::filter(TimeC == Tr) |> 
-    dplyr::filter(cal_method != "OL") |> 
+    dplyr::filter(TimeC == Tr) |>  
     dplyr::group_by(Variable, Hprev, cal_method) |> 
     dplyr::summarise(
       Q05 = quantile(!!sym(metric), 0.05, na.rm = TRUE),
@@ -438,9 +437,10 @@ boxplot_tr_long_WsRf_OL <- function(data, mode, metric, mask, Tr) {
     ggplot2::scale_fill_manual(
       values = c(
         "WsRf" = "#60a9c9",
-        "Ref" = "#e7646f"
+        "Ref" = "#e7646f",
+        "OL" = "#f4d261"
       ), 
-      breaks = c("WsRf", "Ref")
+      breaks = c("OL", "Ref", "WsRf")
     ) +
     ggplot2::theme_bw(base_size = 12) +
     ggplot2::theme(
